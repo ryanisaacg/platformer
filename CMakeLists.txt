@@ -8,7 +8,7 @@ set(CMAKE_BUILD_TYPE Release)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB SOURCES src/*.cpp)
-file(GLOB INCLUDES include/*.h)
+file(GLOB INCLUDES src/*.h)
 add_subdirectory(arcade-physics)
 
 find_package(SDL2)
