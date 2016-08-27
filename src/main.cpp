@@ -1,16 +1,18 @@
 #include <iostream>
 #include <vector>
 
-#include "optional.h"
 #include "SDL.h"
-#undef main
+
+#include "optional.h"
 #include "tilemap.h"
 
 #include "physics.h"
 #include "rect.h"
+#include "window.h"
 
 using namespace std;
 
+#undef main
 int main() {
 	TileMap<Optional<Entity>> map(640, 480, 32);
 	map[Vector2(0, 448)] = Entity(0, 448, 32, 32, nullptr);
@@ -20,11 +22,8 @@ int main() {
 	for(int i = 0; i < 30; i++)
 		update(map, entities);
 	cout << entities[0].y << std::endl;
-	SDL_Init(SDL_INIT_VIDEO);
-	SDL_Window *window = SDL_CreateWindow("Platformer", 10, 10, 640, 480, SDL_WINDOW_SHOWN);
+	auto window = Window("Platformer", 640, 480);
 	SDL_Delay(1000);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
 	return 0;
 }
 
