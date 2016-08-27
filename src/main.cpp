@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory>
 #include <vector>
 
 #include "optional.h"
@@ -10,17 +9,17 @@
 #include "physics.h"
 #include "rect.h"
 
-
+using namespace std;
 
 int main() {
 	TileMap<Optional<Entity>> map(640, 480, 32);
 	map[Vector2(0, 448)] = Entity(0, 448, 32, 32, nullptr);
 	auto ent = Entity(0, 0, 32, 32, nullptr);
-	std::shared_ptr<std::vector<Entity>> entities = std::make_shared<std::vector<Entity>>();
-	entities->push_back(ent);
+	vector<Entity> entities;
+	entities.push_back(ent);
 	for(int i = 0; i < 30; i++)
 		update(map, entities);
-	std::cout << entities->at(0).y;
+	cout << entities[0].y;
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_Window *window = SDL_CreateWindow("Platformer", 10, 10, 640, 480, SDL_WINDOW_SHOWN);
 	SDL_Delay(1000);
