@@ -5,7 +5,7 @@
 #undef main
 
 int main() {
-	TileMap<rect> map(640, 480, 32);
+	TileMap<Rect> map(640, 480, 32);
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_Window *window = SDL_CreateWindow("Platformer", 10, 10, 640, 480, SDL_WINDOW_SHOWN);
 	SDL_Delay(1000);
