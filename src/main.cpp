@@ -19,7 +19,7 @@ int main() {
 	entities.push_back(ent);
 	for(int i = 0; i < 30; i++)
 		update(map, entities);
-	cout << entities[0].y;
+	cout << entities[0].y << std::endl;
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_Window *window = SDL_CreateWindow("Platformer", 10, 10, 640, 480, SDL_WINDOW_SHOWN);
 	SDL_Delay(1000);
