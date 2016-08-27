@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.4.0)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/modules/")
 cmake_policy(SET CMP0003 NEW)
+cmake_policy(SET CMP0004 OLD)
 
 project (platformer)
 set(CMAKE_BUILD_TYPE Release)
