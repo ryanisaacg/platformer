@@ -7,9 +7,11 @@ class Window;
 
 struct Texture {
 	Texture(Window window, const char *filename);
+	Texture();
 	~Texture();
+	Texture& operator=(const Texture& other);
 	SDL_Texture *texture;
-	const int width;
-	const int height;
+	int width;
+	int height;
 };
 #endif

@@ -15,8 +15,8 @@ using namespace std;
 #undef main
 int main() {
 	TileMap<Optional<Entity>> map(640, 480, 32);
-	map[Vector2(0, 448)] = Entity(0, 448, 32, 32, nullptr);
-	auto ent = Entity(0, 0, 32, 32, nullptr);
+	map[Vector2(0, 448)] = Entity(0, 448, 32, 32, Optional<Texture>());
+	auto ent = Entity(0, 0, 32, 32, Optional<Texture>());
 	vector<Entity> entities;
 	entities.push_back(ent);
 	for(int i = 0; i < 30; i++)

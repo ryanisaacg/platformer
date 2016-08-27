@@ -2,15 +2,19 @@
 #define ENTITY_H_
 
 #include "SDL.h"
+
+#include "optional.h"
 #include "tilemap.h"
 #include "vector2.h"
+
+#include "texture.h"
 
 struct Entity {
 	int x, y, width, height;
 	Vector2 speed;
-	SDL_Texture *texture;
+	Optional<Texture> texture;
 	Entity();
-	Entity(int x, int y, int width, int height, SDL_Texture *texture);
+	Entity(int x, int y, int width, int height, Optional<Texture> texture);
 	const SDL_Rect sdl_bounds() const;
 	const Rect bounds() const;
 	void move();

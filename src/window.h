@@ -4,6 +4,8 @@
 #include "SDL.h"
 
 #include "rect.h"
+
+struct Texture;
 #include "texture.h"
 
 class Window {
