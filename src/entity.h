@@ -13,8 +13,13 @@ struct Entity {
 	const SDL_Rect bounds() const;
 	void move();
 	template<typename T>
-	void move(TileMap<T> map) {
-		
+	void move(const TileMap<T> map) {
+		auto rect = Rect(x, y, width, height);
+		map.move(rect, speed, rect, texture);
+		x = rect.x;
+		y = rect.y;
+		width = rect.width;
+		height = rect.height;
 	}
 };
 #endif

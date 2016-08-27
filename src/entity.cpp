@@ -9,3 +9,8 @@ const SDL_Rect Entity::bounds() const {
 	SDL_Rect rect = {x, y, width, height};
 	return rect;
 }
+
+void move() {
+	x += speed.x;
+	y += speed.y;
+}
