@@ -22,7 +22,8 @@ int main() {
 	for(int i = 0; i < 30; i++)
 		update(map, entities);
 	cout << entities[0].y << std::endl;
-	auto window = Window("Platformer", 640, 480);
+	string title = "Platformer";
+	auto window = Window(title.c_str(), 640, 480);
 	SDL_Delay(1000);
 	return 0;
 }
