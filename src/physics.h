@@ -3,7 +3,10 @@
 
 #include <vector>
 
+#include "optional.h"
+#include "tilemap.h"
+
 #include "entity.h"
 
-void update(TileMap<Entity> map, std::vector<Entity> entities);
+void update(TileMap<Optional<Entity>> map, std::vector<Entity> entities);
 #endif

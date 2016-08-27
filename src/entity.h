@@ -17,7 +17,7 @@ struct Entity {
 	template<typename T>
 	void move(const TileMap<T> map) {
 		auto rect = bounds();
-		map.move(rect, speed, rect, texture);
+		map.rect_move(rect, speed, rect, speed);
 		x = rect.x;
 		y = rect.y;
 		width = rect.width;
