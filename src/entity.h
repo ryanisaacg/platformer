@@ -8,6 +8,7 @@
 #include "vector2.h"
 
 #include "texture.h"
+#include "window.h"
 
 struct Entity {
 	int x, y, width, height;
@@ -18,6 +19,7 @@ struct Entity {
 	const SDL_Rect sdl_bounds() const;
 	const Rect bounds() const;
 	void move();
+	void render(const Window window) const;
 	template<typename T>
 	void move(const TileMap<T> map) {
 		auto rect = bounds();

@@ -7,6 +7,7 @@ static SDL_Rect to_sdl(const Rect input);
 
 Window::Window(const char *name, int width, int height) {
 	SDL_Init(SDL_INIT_VIDEO);
+	IMG_Init(IMG_INIT_PNG);
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, 
 		SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -27,6 +28,7 @@ Window::~Window() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+	IMG_Quit();
 }
 
 static SDL_Rect to_sdl(const Rect input) {
@@ -36,4 +38,12 @@ static SDL_Rect to_sdl(const Rect input) {
 	rect.w = (int)input.width;
 	rect.h = (int)input.height;
 	return rect;
+}
+
+void Window::start() {
+	SDL_RenderClear(renderer);
+}
+
+void Window::end() {
+	SDL_RenderPresent(renderer);
 }

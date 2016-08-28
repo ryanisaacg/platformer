@@ -14,6 +14,8 @@ public:
 	~Window();
 	void render(const Texture texture, Rect source, Rect dest) const;
 	void render(const Texture texture, Rect dest) const;
+	void start();
+	void end();
 private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;

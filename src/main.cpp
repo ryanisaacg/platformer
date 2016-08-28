@@ -14,17 +14,30 @@ using namespace std;
 
 #undef main
 int main() {
+	string title = "Platformer";
+	auto window = Window(title.c_str(), 640, 480);
 	TileMap<Optional<Entity>> map(640, 480, 32);
 	map[Vector2(0, 448)] = Entity(0, 448, 32, 32, Optional<Texture>());
 	auto ent = Entity(0, 0, 32, 32, Optional<Texture>());
-	vector<Entity> entities;
-	entities.push_back(ent);
-	for(int i = 0; i < 30; i++)
-		update(map, entities);
-	cout << entities[0].y << std::endl;
-	string title = "Platformer";
-	auto window = Window(title.c_str(), 640, 480);
+	//vector<Entity> entities;
+	//entities.push_back(ent);
 	SDL_Delay(1000);
+	/*while(bool run_loop = true) {
+		update(map, entities);
+		SDL_Event e;
+		while(SDL_PollEvent(&e)) {
+			switch(e.type) {
+			case SDL_QUIT:
+				run_loop = false;
+				break;
+			}
+		}
+		window.start();
+		for(auto &ent : entities)
+			ent.render(window);
+		window.end();
+		SDL_Delay(16);
+	}*/
 	return 0;
 }
 
