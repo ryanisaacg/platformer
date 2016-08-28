@@ -1,6 +1,5 @@
 //-*-C++-*-
-#ifndef WINDOW_H_
-#define WINDOW_H_
+#pragma once
 
 #include <vector>
 
@@ -23,5 +22,3 @@ private:
 	SDL_Renderer *renderer;
 	std::vector<SDL_Texture*> textures;
 };
-
-#endif

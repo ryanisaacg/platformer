@@ -1,6 +1,5 @@
-#ifndef ENTITY_H_
 //-*-C++-*-
-#define ENTITY_H_
+#pragma once
 
 #include "SDL.h"
 
@@ -30,4 +29,3 @@ struct Entity {
 		height = rect.height;
 	}
 };
-#endif

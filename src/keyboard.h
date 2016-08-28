@@ -1,6 +1,5 @@
 //-*-C++-*-
-#ifndef KEYBOARD_H_
-#define KEYBOARD_H_
+#pragma once
 
 #include "SDL.h"
 
@@ -13,4 +12,3 @@ public:
 private:
 	bool keys[261] = {false}; //There are 261 SDL key/scan codes
 };
-#endif
