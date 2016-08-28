@@ -10,11 +10,11 @@ void Controller::update() {
 		switch(entity.control) {
 		case ControlType::PLAYER:
 			entity.speed.x = 0;
-			if(keyboard[SDL_SCANCODE_D])
+			if(keyboard[SDL_SCANCODE_RIGHT])
 				entity.speed.x = 3;
-			if(keyboard[SDL_SCANCODE_A]) 
+			if(keyboard[SDL_SCANCODE_LEFT]) 
 				entity.speed.x = -3;
-			if(keyboard[SDL_SCANCODE_W]) {
+			if(keyboard[SDL_SCANCODE_F]) {
 				if(!jumpedLastFrame && state.supported(entity)) {
 					entity.speed.y = -10;
 				}
