@@ -42,7 +42,10 @@ int main() {
 	entities.push_back(ent);
 	auto controller = PlayerController(keyboard, map, entities[0]);
 	auto update_thread = thread(update_loop);
+	int frames = 0;
+	float avg_framerate = 0;
 	while(run_loop) {
+		auto start = SDL_GetTicks();
 		//EVENT POLLING
 		SDL_Event e;
 		while(SDL_PollEvent(&e)) {
@@ -63,9 +66,14 @@ int main() {
 			}
 		}
 		window.end();
-		SDL_Delay(1);
+		auto end = SDL_GetTicks();
+		frames += 1;
+		float total = frames * avg_framerate;
+		total += end - start;
+		avg_framerate = total / frames;
 	}
 	update_thread.join();
+	cout << "Average framerate: " << 1000 / avg_framerate << endl;
 	return 0;
 }
 
