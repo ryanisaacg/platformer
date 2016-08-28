@@ -25,6 +25,7 @@ int main() {
 	bool run_loop = true;
 	while(run_loop) {
 		update(map, entities);
+		entities[0].speed.x = 0;
 		SDL_Event e;
 		while(SDL_PollEvent(&e)) {
 			switch(e.type) {
@@ -34,10 +35,10 @@ int main() {
 			case SDL_KEYDOWN:
 				switch(e.key.keysym.sym) {
 				case SDLK_d:
-					ent.speed.x = 3;
+					entities[0].speed.x = 3;
 					break;
 				case SDLK_a:
-					ent.speed.y = -3;
+					entities[0].speed.x = -3;
 					break;
 				}
 				break;
