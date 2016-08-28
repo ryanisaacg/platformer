@@ -23,8 +23,11 @@ vector<Entity> entities;
 void update_loop() {
 	while(run_loop) {
 		//STATE UPDATE
+		auto ticks = SDL_GetTicks();
 		update(map, entities);
-		SDL_Delay(16);
+		auto elapsed = SDL_GetTicks() - ticks;
+		if(elapsed > 16) continue;
+		SDL_Delay(16 - elapsed);
 	}
 }
 
