@@ -6,7 +6,7 @@ class Window;
 #include "window.h"
 
 struct Texture {
-	Texture(Window window, const char *filename);
+	Texture(Window &window, const char *filename);
 	Texture();
 	~Texture();
 	Texture& operator=(const Texture& other);

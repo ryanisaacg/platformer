@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "SDL.h"
 #include "SDL_image.h"
 
@@ -11,6 +13,7 @@ Window::Window(const char *name, int width, int height) {
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, 
 		SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }
 
 void Window::render(const Texture texture, Rect source, Rect dest) const {

@@ -21,7 +21,7 @@ void Entity::move() {
 	y += speed.y;
 }
 
-void Entity::render(const Window window) const {
+void Entity::render(const Window &window) const {
 	if(texture) {
 		window.render(*texture, bounds());
 	}

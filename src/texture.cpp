@@ -6,7 +6,7 @@
 #include "texture.h"
 #include "window.h"
 
-Texture::Texture(Window window, const char *filename) {
+Texture::Texture(Window &window, const char *filename) {
 	/*SDL_Surface *surface = IMG_Load(filename);
 	width = surface->w;
 	height = surface->h;
