@@ -15,7 +15,7 @@ void update(const TileMap<Optional<Entity>> &map, vector<Entity> &entities) {
 static void gravity(const TileMap<Optional<Entity>> &map, vector<Entity> &entities) {
 	for(auto& entity : entities) {
 		if(!supported(map, entity)) {
-			entity.speed.y += 2;
+			entity.speed.y += 0.5f;
 		}
 	}
 }
