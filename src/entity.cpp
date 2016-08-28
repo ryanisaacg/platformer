@@ -1,10 +1,8 @@
-#include <iostream>
-
 #include "entity.h"
 
-Entity::Entity() : Entity(0, 0, 0, 0, Optional<Texture>()) {}
+Entity::Entity() : Entity(0, 0, 0, 0, nullptr) {}
 
-Entity::Entity(int x, int y, int width, int height, Optional<Texture> texture)
+Entity::Entity(int x, int y, int width, int height, SDL_Texture *texture)
 	: x(x), y(y), width(width), height(height), texture(texture), 
 	speed(0, 0) {}
 
@@ -24,7 +22,5 @@ void Entity::move() {
 }
 
 void Entity::render(const Window &window) const {
-	if(texture) {
-		window.render(*texture, bounds());
-	}
+	window.render(texture, bounds());
 }

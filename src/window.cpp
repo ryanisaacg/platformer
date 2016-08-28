@@ -16,15 +16,42 @@ Window::Window(const char *name, int width, int height) {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }
 
-void Window::render(const Texture &texture, Rect source, Rect dest) const {
+void Window::render(SDL_Texture *texture, Rect source, Rect dest) const {
 	SDL_Rect src = to_sdl(source);
 	SDL_Rect dst = to_sdl(dest);
-	SDL_RenderCopy(renderer, texture.texture, &src, &dst);
+	SDL_RenderCopy(renderer, texture, &src, &dst);
 }
 
-void Window::render(const Texture &texture, Rect dest) const {
+void Window::render(SDL_Texture *texture, Rect dest) const {
 	SDL_Rect dst = to_sdl(dest);
-	SDL_RenderCopy(renderer, texture.texture, nullptr, &dst);
+	SDL_RenderCopy(renderer, texture, nullptr, &dst);
+}
+
+SDL_Surface* Window::load_surface(const char *filename) {
+	SDL_Surface* optimizedSurface = nullptr;
+	SDL_Surface* loadedSurface = IMG_Load(filename);
+	if (loadedSurface == nullptr)
+		std::cout << "Unable to load image " << filename << "! SDL_image Error: " << IMG_GetError() << std::endl;
+	else {
+		optimizedSurface = SDL_ConvertSurface(loadedSurface, SDL_GetWindowSurface(window)->format, 0);
+		if (optimizedSurface == nullptr) {
+			std::cout << "Unable to optimize image " << filename << "! SDL Error: " << SDL_GetError();
+			optimizedSurface = loadedSurface;
+		} else {
+			SDL_FreeSurface(loadedSurface);
+		}
+	}
+	return optimizedSurface;
+}
+
+SDL_Texture* Window::load_texture(const char *filename) {
+	SDL_Surface *surface = load_surface(filename);
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+	if(texture == nullptr) {
+		std::cout << "Unable to create texture from " << filename << "! SDL Error: " << SDL_GetError() << std::endl;
+	}
+	return texture;
 }
 
 Window::~Window() {

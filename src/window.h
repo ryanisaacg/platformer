@@ -5,15 +5,14 @@
 
 #include "rect.h"
 
-struct Texture;
-#include "texture.h"
-
 class Window {
 public:
 	Window(const char *name, int width, int height);
 	~Window();
-	void render(const Texture &texture, Rect source, Rect dest) const;
-	void render(const Texture &texture, Rect dest) const;
+	SDL_Surface* load_surface(const char *filename);
+	SDL_Texture* load_texture(const char *filename);
+	void render(SDL_Texture *texture, Rect source, Rect dest) const;
+	void render(SDL_Texture *texture, Rect dest) const;
 	void start();
 	void end();
 private:

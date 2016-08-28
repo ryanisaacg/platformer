@@ -17,8 +17,9 @@ int main() {
 	string title = "Platformer";
 	auto window = Window(title.c_str(), 640, 480);
 	TileMap<Optional<Entity>> map(640, 480, 32);
-	map[Vector2(0, 448)] = Entity(0, 448, 32, 32, Optional<Texture>());
-	auto ent = Entity(0, 0, 32, 32, Optional<Texture>(Texture(window, "../img/red.png")));
+	auto texture = window.load_texture("../img/red.png");
+	map[Vector2(0, 448)] = Entity(0, 448, 32, 32, texture);
+	auto ent = Entity(0, 0, 32, 32, texture);
 	vector<Entity> entities;
 	entities.push_back(ent);
 	bool run_loop = true;

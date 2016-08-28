@@ -7,15 +7,14 @@
 #include "tilemap.h"
 #include "vector2.h"
 
-#include "texture.h"
 #include "window.h"
 
 struct Entity {
 	int x, y, width, height;
 	Vector2 speed;
-	Optional<Texture> texture;
+	SDL_Texture *texture;
 	Entity();
-	Entity(int x, int y, int width, int height, Optional<Texture> texture);
+	Entity(int x, int y, int width, int height, SDL_Texture *texture);
 	const SDL_Rect sdl_bounds() const;
 	const Rect bounds() const;
 	void move();
