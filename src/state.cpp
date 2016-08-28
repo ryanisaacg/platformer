@@ -1,9 +1,11 @@
+#include <algorithm>
+
 #include "state.h"
 
-State::State(int width, int height) : map(width, height, State::TILE_SIZE),
-	entities() {}
-Entity& State::spawn(Rect region, SDL_Texture *texture) {
-	auto ent = Entity(region.x, region.y, region.width, region.height, texture);
+State::State(int width, int height) : map(width, height, State::TILE_SIZE), entities() {}
+
+Entity& State::spawn(Rect region, SDL_Texture *texture, bool contact_death, ControlType control) {
+	auto ent = Entity(region.x, region.y, region.width, region.height, texture, contact_death, control);
 	entities.push_back(ent);
 	return entities[entities.size() - 1];
 }
@@ -17,6 +19,9 @@ void State::update() {
 		}
 		entity.move(map);
 	}
+	entities.erase(std::remove_if(entities.begin(), entities.end(),
+		[](auto &entity) { return entity.health <= 0; }),
+	entities.end());
 }
 bool State::supported(const Entity &entity) const {
 	auto bounds = entity.bounds();

@@ -7,11 +7,10 @@
 
 class PlayerController {
 public:
-	PlayerController(const Keyboard &keyboard, const State &state, Entity &player);
+	PlayerController(const Keyboard &keyboard, State &state);
 	void update();
 private:
 	bool jumpedLastFrame;
 	const Keyboard &keyboard;
-	const State &state;
-	Entity &player;
+	State &state;
 };

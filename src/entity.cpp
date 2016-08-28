@@ -2,9 +2,8 @@
 
 Entity::Entity() : Entity(0, 0, 0, 0, nullptr) {}
 
-Entity::Entity(int x, int y, int width, int height, SDL_Texture *texture)
-	: x(x), y(y), width(width), height(height), texture(texture), 
-	speed(0, 0) {}
+Entity::Entity(int x, int y, int width, int height, SDL_Texture *texture, bool die_on_contact, ControlType control) : x(x), y(y), 
+	width(width), height(height), texture(texture), speed(0, 0), die_on_contact(die_on_contact), control(control), health(1) {}
 
 
 const SDL_Rect Entity::sdl_bounds() const {

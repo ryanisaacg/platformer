@@ -37,8 +37,9 @@ int main() {
 	Keyboard keyboard;
 	auto texture = window.load_texture("../img/red.png");
 	state.place_tile(Vector2(0, 448), texture);
-	auto &player = state.spawn(Rect(0, 0, 32, 32), texture);
-	auto controller = PlayerController(keyboard, state, player);
+	auto &player = state.spawn(Rect(0, 0, 32, 32), texture, false, ControlType::PLAYER);
+	state.spawn(Rect(200, 0, 32, 32), texture, true);
+	auto controller = PlayerController(keyboard, state);
 	auto update_thread = thread(update_loop);
 	int frames = 0;
 	float avg_framerate = 0;

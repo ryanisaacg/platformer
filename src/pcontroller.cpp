@@ -1,22 +1,29 @@
 #include "pcontroller.h"
 
-PlayerController::PlayerController(const Keyboard &keyboard, 
-	const State &state, Entity &player) :
-	keyboard(keyboard), state(state), player(player), jumpedLastFrame(false) {}
+#include "entity.h"
+
+PlayerController::PlayerController(const Keyboard &keyboard, State &state) : keyboard(keyboard), state(state) {}
 
 void PlayerController::update() {
-	player.speed.x = 0;
-	if(keyboard[SDLK_d])
-		player.speed.x = 3;
-	if(keyboard[SDLK_a]) 
-		player.speed.x = -3;
-	if(keyboard[SDLK_w]) {
-		if(!jumpedLastFrame && state.supported(player)) {
-			player.speed.y = -10;
+	for(int i = 0; i < state.entities.size(); i++) {
+		auto &entity = state.entities[i];
+		switch(entity.control) {
+		case ControlType::PLAYER:
+			entity.speed.x = 0;
+			if(keyboard[SDLK_d])
+				entity.speed.x = 3;
+			if(keyboard[SDLK_a]) 
+				entity.speed.x = -3;
+			if(keyboard[SDLK_w]) {
+				if(!jumpedLastFrame && state.supported(entity)) {
+					entity.speed.y = -10;
+				}
+				jumpedLastFrame = true;
+			} else {
+				jumpedLastFrame = false;
+			}
+			break;
 		}
-		jumpedLastFrame = true;
-	} else {
-		jumpedLastFrame = false;
 	}
 }
 	
