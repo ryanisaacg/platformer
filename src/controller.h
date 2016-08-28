@@ -1,13 +1,12 @@
 //-*-C++-*-
 #pragma once
 
-#include "entity.h"
 #include "keyboard.h"
 #include "state.h"
 
-class PlayerController {
+class Controller {
 public:
-	PlayerController(const Keyboard &keyboard, State &state);
+	Controller(const Keyboard &keyboard, State &state);
 	void update();
 private:
 	bool jumpedLastFrame;

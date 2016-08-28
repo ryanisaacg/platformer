@@ -8,7 +8,7 @@
 #include "tilemap.h"
 
 #include "keyboard.h"
-#include "pcontroller.h"
+#include "controller.h"
 #include "rect.h"
 #include "state.h"
 #include "window.h"
@@ -39,7 +39,7 @@ int main() {
 	state.place_tile(Vector2(0, 448), texture);
 	auto &player = state.spawn(Rect(0, 0, 32, 32), texture, false, ControlType::PLAYER);
 	state.spawn(Rect(200, 0, 32, 32), texture, true);
-	auto controller = PlayerController(keyboard, state);
+	auto controller = Controller(keyboard, state);
 	auto update_thread = thread(update_loop);
 	int frames = 0;
 	float avg_framerate = 0;

@@ -1,10 +1,10 @@
-#include "pcontroller.h"
+#include "controller.h"
 
 #include "entity.h"
 
-PlayerController::PlayerController(const Keyboard &keyboard, State &state) : keyboard(keyboard), state(state) {}
+Controller::Controller(const Keyboard &keyboard, State &state) : keyboard(keyboard), state(state) {}
 
-void PlayerController::update() {
+void Controller::update() {
 	for(int i = 0; i < state.entities.size(); i++) {
 		auto &entity = state.entities[i];
 		switch(entity.control) {
