@@ -31,6 +31,16 @@ int main() {
 			case SDL_QUIT:
 				run_loop = false;
 				break;
+			case SDL_KEYDOWN:
+				switch(e.key.keysym.sym) {
+				case SDLK_d:
+					ent.speed.x = 3;
+					break;
+				case SDLK_a:
+					ent.speed.y = -3;
+					break;
+				}
+				break;
 			}
 		}
 		window.start();
