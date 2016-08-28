@@ -7,12 +7,12 @@
 #include "window.h"
 
 Texture::Texture(Window &window, const char *filename) {
-	/*SDL_Surface *surface = IMG_Load(filename);
+	SDL_Surface *surface = IMG_Load(filename);
 	width = surface->w;
 	height = surface->h;
 	texture = SDL_CreateTextureFromSurface(window.renderer, surface);
 	SDL_FreeSurface(surface);
-	std::cout << texture << std::endl;*/
+	std::cout << surface << std::endl;
 }
 
 Texture::Texture() : texture(nullptr), width(0), height(0) {}

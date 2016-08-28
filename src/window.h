@@ -12,8 +12,8 @@ class Window {
 public:
 	Window(const char *name, int width, int height);
 	~Window();
-	void render(const Texture texture, Rect source, Rect dest) const;
-	void render(const Texture texture, Rect dest) const;
+	void render(const Texture &texture, Rect source, Rect dest) const;
+	void render(const Texture &texture, Rect dest) const;
 	void start();
 	void end();
 private:

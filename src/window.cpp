@@ -16,13 +16,13 @@ Window::Window(const char *name, int width, int height) {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 }
 
-void Window::render(const Texture texture, Rect source, Rect dest) const {
+void Window::render(const Texture &texture, Rect source, Rect dest) const {
 	SDL_Rect src = to_sdl(source);
 	SDL_Rect dst = to_sdl(dest);
 	SDL_RenderCopy(renderer, texture.texture, &src, &dst);
 }
 
-void Window::render(const Texture texture, Rect dest) const {
+void Window::render(const Texture &texture, Rect dest) const {
 	SDL_Rect dst = to_sdl(dest);
 	SDL_RenderCopy(renderer, texture.texture, nullptr, &dst);
 }

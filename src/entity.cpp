@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "entity.h"
 
 Entity::Entity() : Entity(0, 0, 0, 0, Optional<Texture>()) {}
