@@ -1,4 +1,5 @@
 #ifndef ENTITY_H_
+//-*-C++-*-
 #define ENTITY_H_
 
 #include "SDL.h"
@@ -22,7 +23,7 @@ struct Entity {
 	template<typename T>
 	void move(const TileMap<T> map) {
 		auto rect = bounds();
-		map.rect_move(rect, speed, rect, speed);
+		map.rect_slide(rect, speed, rect, speed);
 		x = rect.x;
 		y = rect.y;
 		width = rect.width;
