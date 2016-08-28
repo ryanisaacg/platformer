@@ -1,6 +1,8 @@
 #ifndef WINDOW_H_
 #define WINDOW_H_
 
+#include <vector>
+
 #include "SDL.h"
 
 #include "rect.h"
@@ -18,7 +20,7 @@ public:
 private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
-	friend class Texture;
+	std::vector<SDL_Texture*> textures;
 };
 
 #endif

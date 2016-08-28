@@ -7,7 +7,7 @@
 
 static SDL_Rect to_sdl(const Rect input);
 
-Window::Window(const char *name, int width, int height) {
+Window::Window(const char *name, int width, int height) : textures() {
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, 
@@ -50,11 +50,15 @@ SDL_Texture* Window::load_texture(const char *filename) {
 	SDL_FreeSurface(surface);
 	if(texture == nullptr) {
 		std::cout << "Unable to create texture from " << filename << "! SDL Error: " << SDL_GetError() << std::endl;
+	} else {
+		textures.push_back(texture);
 	}
 	return texture;
 }
 
 Window::~Window() {
+	for(auto &tex : textures) 
+		SDL_DestroyTexture(tex);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
