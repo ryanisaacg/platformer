@@ -2,9 +2,9 @@
 
 using namespace std;
 
-static void gravity(TileMap<Optional<Entity>> map, vector<Entity> &entities);
+static void gravity(const TileMap<Optional<Entity>> &map, vector<Entity> &entities);
 
-void update(TileMap<Optional<Entity>> map, vector<Entity> &entities) {
+void update(const TileMap<Optional<Entity>> &map, vector<Entity> &entities) {
 	gravity(map, entities);
 	for(auto &entity : entities) {
 		entity.move(map);
@@ -12,13 +12,16 @@ void update(TileMap<Optional<Entity>> map, vector<Entity> &entities) {
 }
 	
 	
-static void gravity(TileMap<Optional<Entity>> map, vector<Entity> &entities) {
+static void gravity(const TileMap<Optional<Entity>> &map, vector<Entity> &entities) {
 	for(auto& entity : entities) {
-		auto bounds = entity.bounds();
-		bounds.y += 1;
-		if(map.free(bounds)) {
+		if(!supported(map, entity)) {
 			entity.speed.y += 2;
 		}
 	}
 }
-	
+
+bool supported(const TileMap<Optional<Entity>> &map, const Entity &test) {
+	auto bounds = test.bounds();
+	bounds.y += 1;
+	return !map.free(bounds);
+}

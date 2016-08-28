@@ -9,5 +9,6 @@
 
 #include "entity.h"
 
-void update(TileMap<Optional<Entity>> map, std::vector<Entity> &entities);
+void update(const TileMap<Optional<Entity>> &map, std::vector<Entity> &entities);
+bool supported(const TileMap<Optional<Entity>> &map, const Entity &test);
 #endif
