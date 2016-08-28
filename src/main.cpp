@@ -38,6 +38,8 @@ int main() {
 			entities[0].speed.x = 3;
 		if(keyboard[SDLK_a])
 			entities[0].speed.x = -3;
+		if(keyboard[SDLK_w] && supported(map, entities[0]))
+			entities[0].speed.y = -10;
 		update(map, entities);
 		//RENDER CODE
 		window.start();
