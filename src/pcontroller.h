@@ -10,8 +10,9 @@
 class PlayerController {
 public:
 	PlayerController(const Keyboard &keyboard, const TileMap<Optional<Entity>> &map, Entity &player);
-	void update() const;
+	void update();
 private:
+	bool jumpedLastFrame;
 	const Keyboard &keyboard;
 	const TileMap<Optional<Entity>> &map;
 	Entity &player;
