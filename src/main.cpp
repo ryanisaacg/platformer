@@ -27,8 +27,10 @@ int main() {
 		update(map, entities);
 		SDL_Event e;
 		while(SDL_PollEvent(&e)) {
-			if(e.type == SDL_QUIT) {
+			switch(e.type) {
+			case SDL_QUIT:
 				run_loop = false;
+				break;
 			}
 		}
 		window.start();
