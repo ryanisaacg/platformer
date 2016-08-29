@@ -18,6 +18,8 @@ void State::update() {
 			entity.speed.y += 0.5f;
 		}
 		entity.move(map);
+		if(entity.fire_cooldown > 0)
+			entity.fire_cooldown -= 1;
 	}
 	entities.erase(std::remove_if(entities.begin(), entities.end(),
 		[](auto &entity) { return entity.health <= 0; }),

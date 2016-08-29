@@ -17,6 +17,7 @@ public:
 	Vector2 speed;
 	SDL_Texture *texture;
 	ControlType control;
+	int fire_cooldown = 0, facing = 1;
 	Entity();
 	Entity(int x, int y, int width, int height, SDL_Texture *texture, bool die_on_contact = false, 
 		ControlType type = ControlType::NONE);
