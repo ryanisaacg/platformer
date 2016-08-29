@@ -13,7 +13,7 @@ Window::Window(const char *name, int width, int height) : textures() {
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, 
 		SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0x0);
 }
 
 void Window::render(SDL_Texture *texture, Rect source, Rect dest) const {

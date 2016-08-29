@@ -40,7 +40,7 @@ int main() {
 	state.place_tile(Vector2(0, 448), texture);
 	auto &player = state.spawn(Rect(0, 0, 32, 32), texture, false, ControlType::PLAYER);
 	state.spawn(Rect(200, 0, 32, 32), texture, true);
-	auto update_thread = thread(update_loop, Controller(keyboard, state));
+	auto update_thread = thread(update_loop, Controller(keyboard, state, window.load_texture("../img/bullet.png")));
 	int frames = 0;
 	float avg_framerate = 0;
 	while(run_loop) {
