@@ -19,11 +19,12 @@ bool run_loop = true;
 
 State state(640, 480);
 
-void update_loop() {
+void update_loop(Controller controller) {
 	while(run_loop) {
 		//STATE UPDATE
 		auto ticks = SDL_GetTicks();
 		state.update();
+		controller.update();
 		auto elapsed = SDL_GetTicks() - ticks;
 		if(elapsed > 16) continue;
 		SDL_Delay(16 - elapsed);
@@ -39,8 +40,7 @@ int main() {
 	state.place_tile(Vector2(0, 448), texture);
 	auto &player = state.spawn(Rect(0, 0, 32, 32), texture, false, ControlType::PLAYER);
 	state.spawn(Rect(200, 0, 32, 32), texture, true);
-	auto controller = Controller(keyboard, state);
-	auto update_thread = thread(update_loop);
+	auto update_thread = thread(update_loop, Controller(keyboard, state));
 	int frames = 0;
 	float avg_framerate = 0;
 	while(run_loop) {
@@ -51,7 +51,6 @@ int main() {
 			if(e.type == SDL_QUIT) run_loop = false;
 			else keyboard.process(e);
 		}
-		controller.update();
 		//RENDER CODE
 		window.start();
 		for(auto &ent : state.entities)
