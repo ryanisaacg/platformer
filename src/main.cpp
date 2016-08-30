@@ -39,6 +39,7 @@ int main() {
 	auto texture = window.load_texture("../img/red.png");
 	state.place_tile(Vector2(0, 448), texture);
 	auto &player = state.spawn(Rect(0, 0, 32, 32), texture, false, ControlType::PLAYER);
+	player.gravity = 0.5f;
 	state.spawn(Rect(200, 0, 32, 32), texture, true);
 	auto update_thread = thread(update_loop, Controller(keyboard, state, window.load_texture("../img/bullet.png")));
 	int frames = 0;
