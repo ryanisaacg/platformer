@@ -15,7 +15,7 @@ void State::place_tile(Vector2 point, SDL_Texture *texture) {
 void State::update() {
 	for(auto& entity : entities) {
 		if(!supported(entity)) {
-			entity.speed.y += 0.5f;
+			entity.speed.y += entity.gravity;
 		}
 		entity.move(map);
 		if(entity.fire_cooldown > 0)
