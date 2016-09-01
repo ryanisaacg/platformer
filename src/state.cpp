@@ -23,7 +23,7 @@ void State::update() {
 				auto ent_bounds = entity.bounds;
 				auto other_bounds = other.bounds;
 				if(&other != &entity && other.alignment != Alignment::NONE && 
-					other.alignment != entity.alignment && other_bounds->overlaps(*ent_bounds)) {
+					other.alignment != entity.alignment && other_bounds->overlaps(ent_bounds)) {
 					other.health -= 1;
 					entity.health -= 1;
 				}
@@ -36,9 +36,8 @@ void State::update() {
 	entities.end());
 }
 bool State::supported(const Entity &entity) const {
-	auto bounds = entity.bounds;
-	bounds->setY(bounds->getY() + 1);
-	bool free = !map.free(*bounds);
-	bounds->setY(bounds->getY() - 1);
+	entity.bounds->setY(entity.bounds->getY() + 1);
+	bool free = !map.free(entity.bounds);
+	entity.bounds->setY(entity.bounds->getY() - 1);
 	return free;
 }
