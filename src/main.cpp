@@ -60,13 +60,13 @@ int main() {
 		//RENDER CODE
 		window.start();
 		for(auto &ent : state.entities)
-			ent.render(window);
+			window.render(ent);
 		auto map = state.map;
 		for(int x = 0; x < map.width; x += map.square_size) {
 			for(int y = 0; y < map.height; y += map.square_size) {
 				auto square = map[Vector2(x, y)];
 				if(square) {
-					(*square).render(window);
+					window.render(*square);
 				}
 			}
 		}

@@ -4,16 +4,12 @@ Entity::Entity() : Entity(Rect(0, 0, 0, 0), nullptr) {}
 
 Entity::Entity(Rect rect, SDL_Texture *texture, bool projectile, ControlType control) : texture(texture), 
 speed(0, 0), projectile(projectile), control(control), health(1), alignment(Alignment::NONE) {
-	bounds = new Rect(rect.x, rect.y, rect.width, rect.height);
+	bounds = std::shared_ptr<Physical>(new Rect(rect.x, rect.y, rect.width, rect.height));
 }
 
 Entity::Entity(Circle circ, SDL_Texture *texture, bool projectile, ControlType control) : texture(texture), 
 speed(0, 0), projectile(projectile), control(control), health(1), alignment(Alignment::NONE) {
-	bounds = new Circle(circ.x, circ.y, circ.radius);
-}
-
-Entity::~Entity() {
-	delete bounds;
+	bounds = std::shared_ptr<Physical>(new Circle(circ.x, circ.y, circ.radius));
 }
 
 const SDL_Rect Entity::sdl_bounds() const {
@@ -28,8 +24,4 @@ const SDL_Rect Entity::sdl_bounds() const {
 void Entity::move() {
 	bounds->setX(bounds->getX() + speed.x);
 	bounds->setY(bounds->getY() + speed.y);
-}
-
-void Entity::render(const Window &window) const {
-	window.render(texture, bounds);
 }

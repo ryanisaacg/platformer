@@ -1,6 +1,8 @@
 //-*-C++-*-
 #pragma once
 
+#include <memory>
+
 #include "SDL.h"
 
 #include "optional.h"
@@ -8,14 +10,12 @@
 #include "tilemap.h"
 #include "vector2.h"
 
-#include "window.h"
-
 enum class ControlType { NONE, PLAYER };
 enum class Alignment { NONE, PLAYER, ENEMY };
 
 struct Entity {
 public:
-	Physical *bounds;
+	std::shared_ptr<Physical> bounds;
 	Vector2 speed;
 	SDL_Texture *texture;
 	ControlType control;
@@ -26,22 +26,20 @@ public:
 	Entity();
 	Entity(Rect rect, SDL_Texture *texture, bool projectile = false, ControlType type = ControlType::NONE);
 	Entity(Circle circ, SDL_Texture *texture, bool projectile = false, ControlType type = ControlType::NONE);
-	~Entity();
 	const SDL_Rect sdl_bounds() const;
 	void move();
-	void render(const Window &window) const;
 	template<typename T>
 	void move(const TileMap<T> map) {
 		auto prev_speed = speed;
 		if(projectile) {
 			Vector2 xspeed(speed.x, 0);
 			Vector2 yspeed(0, speed.y);
-			map.shape_slide(bounds, xspeed, bounds, xspeed);
-			map.shape_slide(bounds, yspeed, bounds, yspeed);
+			map.shape_slide(bounds.get(), xspeed, bounds.get(), xspeed);
+			map.shape_slide(bounds.get(), yspeed, bounds.get(), yspeed);
 			if(xspeed.x != speed.x) speed.x *= -1;
 			if(yspeed.y != speed.y) speed.y *= -1;
 		} else {
-			map.shape_slide(bounds, speed, bounds, speed);
+			map.shape_slide(bounds.get(), speed, bounds.get(), speed);
 		}
 	}
 };

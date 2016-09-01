@@ -5,7 +5,7 @@
 
 #include "SDL.h"
 
-#include "physical.h"
+#include "entity.h"
 
 class Window {
 public:
@@ -13,8 +13,7 @@ public:
 	~Window();
 	SDL_Surface* load_surface(const char *filename);
 	SDL_Texture* load_texture(const char *filename);
-	void render(SDL_Texture *texture, SDL_Rect *source, Physical *dest) const;
-	void render(SDL_Texture *texture, Physical *dest) const;
+	void render(const Entity &dest) const;
 	void start();
 	void end();
 private:
