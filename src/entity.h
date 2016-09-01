@@ -36,12 +36,12 @@ public:
 		if(projectile) {
 			Vector2 xspeed(speed.x, 0);
 			Vector2 yspeed(0, speed.y);
-			map.rect_slide(rect, xspeed, rect, xspeed);
-			map.rect_slide(rect, yspeed, rect, yspeed);
+			map.shape_slide(rect, xspeed, rect, xspeed);
+			map.shape_slide(rect, yspeed, rect, yspeed);
 			if(xspeed.x != speed.x) speed.x *= -1;
 			if(yspeed.y != speed.y) speed.y *= -1;
 		} else {
-			map.rect_slide(rect, speed, rect, speed);
+			map.shape_slide(rect, speed, rect, speed);
 		}
 		x = rect.x;
 		y = rect.y;
