@@ -1,4 +1,5 @@
 #include <iostream>
+#include <mutex>
 #include <thread>
 #include <vector>
 
@@ -16,6 +17,7 @@
 
 using namespace std;
 
+mutex mtx;
 bool run_loop = true;
 
 State state(640, 480);
@@ -24,8 +26,10 @@ void update_loop(Controller controller) {
 	while(run_loop) {
 		//STATE UPDATE
 		auto ticks = SDL_GetTicks();
+		mtx.lock();
 		state.update();
 		controller.update();
+		mtx.unlock();
 		auto elapsed = SDL_GetTicks() - ticks;
 		if(elapsed > 16) continue;
 		SDL_Delay(16 - elapsed);
@@ -51,6 +55,7 @@ int main() {
 	float avg_framerate = 0;
 	while(run_loop) {
 		auto start = SDL_GetTicks();
+		mtx.lock();
 		//EVENT POLLING
 		SDL_Event e;
 		while(SDL_PollEvent(&e)) {
@@ -70,6 +75,7 @@ int main() {
 				}
 			}
 		}
+		mtx.unlock();
 		window.end();
 		auto end = SDL_GetTicks();
 		frames += 1;
