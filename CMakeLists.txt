@@ -4,7 +4,7 @@ cmake_policy(SET CMP0003 NEW)
 cmake_policy(SET CMP0004 OLD)
 
 project (platformer)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB SOURCES src/*.cpp)
