@@ -39,6 +39,7 @@ void Controller::update() {
 				bullet.speed.x = entity.facing * 16;
 				entity.fire_cooldown = 10;
 				entity.speed.x -= entity.facing * 3;
+				bullet.alignment = Alignment::PLAYER;
 			}
 			break;
 		}

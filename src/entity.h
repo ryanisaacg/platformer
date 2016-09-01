@@ -10,6 +10,7 @@
 #include "window.h"
 
 enum class ControlType { NONE, PLAYER };
+enum class Alignment { NONE, PLAYER, ENEMY };
 
 struct Entity {
 public:
@@ -19,8 +20,10 @@ public:
 	ControlType control;
 	int fire_cooldown = 0, facing = 1;
 	float gravity = 0;
+	Alignment alignment;
+	bool projectile;
 	Entity();
-	Entity(int x, int y, int width, int height, SDL_Texture *texture, bool die_on_contact = false, 
+	Entity(int x, int y, int width, int height, SDL_Texture *texture, bool projectile = false, 
 		ControlType type = ControlType::NONE);
 	const SDL_Rect sdl_bounds() const;
 	const Rect bounds() const;
@@ -35,10 +38,8 @@ public:
 		y = rect.y;
 		width = rect.width;
 		height = rect.height;
-		if(die_on_contact && (speed.x != prev_speed.x || speed.y != prev_speed.y))
+		if(projectile && (speed.x != prev_speed.x || speed.y != prev_speed.y))
 			health = 0;
 	}
-private:
-	bool die_on_contact;
 };
 

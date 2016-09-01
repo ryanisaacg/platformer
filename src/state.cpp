@@ -18,7 +18,17 @@ void State::update() {
 			entity.speed.y += entity.gravity;
 		}
 		entity.move(map);
-		if(entity.fire_cooldown > 0)
+		if(entity.projectile) {
+			for(auto &other : entities) {
+				auto ent_bounds = entity.bounds();
+				auto other_bounds = other.bounds();
+				if(&other != &entity && other.alignment != Alignment::NONE && 
+					other.alignment != entity.alignment && other_bounds.overlaps(ent_bounds)) {
+					other.health -= 1;
+					entity.health -= 1;
+				}
+			}
+		} else if(entity.fire_cooldown > 0)
 			entity.fire_cooldown -= 1;
 	}
 	entities.erase(std::remove_if(entities.begin(), entities.end(),
