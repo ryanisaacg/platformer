@@ -7,8 +7,9 @@
 #include "optional.h"
 #include "tilemap.h"
 
-#include "keyboard.h"
 #include "controller.h"
+#include "keyboard.h"
+#include "mouse.h"
 #include "rect.h"
 #include "state.h"
 #include "window.h"
@@ -36,6 +37,7 @@ int main() {
 	string title = "Platformer";
 	auto window = Window(title.c_str(), 640, 480);
 	Keyboard keyboard;
+	Mouse mouse;
 	auto texture = window.load_texture("../img/red.png");
 	state.place_tile(Vector2(0, 448), texture);
 	auto &player = state.spawn(Rect(0, 0, 32, 32), texture, false, ControlType::PLAYER);
@@ -44,7 +46,7 @@ int main() {
 	auto &enemy = state.spawn(Rect(200, 0, 32, 32), texture);
 	enemy.alignment = Alignment::ENEMY;
 	enemy.gravity = 0.5f;
-	auto update_thread = thread(update_loop, Controller(keyboard, state, window.load_texture("../img/bullet.png")));
+	auto update_thread = thread(update_loop, Controller(keyboard, mouse, state, window.load_texture("../img/bullet.png")));
 	int frames = 0;
 	float avg_framerate = 0;
 	while(run_loop) {

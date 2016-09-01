@@ -4,14 +4,15 @@
 
 #include "entity.h"
 
-Controller::Controller(const Keyboard &keyboard, State &state, SDL_Texture *bullet) : 
-	keyboard(keyboard), state(state), bullet(bullet) {}
+Controller::Controller(const Keyboard &keyboard, Mouse &mouse, State &state, SDL_Texture *bullet) : 
+	keyboard(keyboard), state(state), bullet(bullet), mouse(mouse) {}
 
 float clamp(float value, float low, float high) {
 	return std::min(high, std::max(low, value));
 }
 
 void Controller::update() {
+	mouse.update();
 	for(int i = 0; i < state.entities.size(); i++) {
 		auto &entity = state.entities[i];
 		switch(entity.control) {
