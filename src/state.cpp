@@ -5,12 +5,12 @@
 State::State(int width, int height) : map(width, height, State::TILE_SIZE), entities() {}
 
 Entity& State::spawn(Rect region, SDL_Texture *texture, bool contact_death, ControlType control) {
-	auto ent = Entity(region.x, region.y, region.width, region.height, texture, contact_death, control);
+	auto ent = Entity(region, texture, contact_death, control);
 	entities.push_back(ent);
 	return entities[entities.size() - 1];
 }
 void State::place_tile(Vector2 point, SDL_Texture *texture) {
-	map[point] = Entity(point.x, point.y, State::TILE_SIZE, State::TILE_SIZE, texture);
+	map[point] = Entity(Rect(point.x, point.y, State::TILE_SIZE, State::TILE_SIZE), texture);
 }
 void State::update() {
 	for(auto& entity : entities) {
@@ -20,10 +20,10 @@ void State::update() {
 		entity.move(map);
 		if(entity.projectile) {
 			for(auto &other : entities) {
-				auto ent_bounds = entity.bounds();
-				auto other_bounds = other.bounds();
+				auto ent_bounds = entity.bounds;
+				auto other_bounds = other.bounds;
 				if(&other != &entity && other.alignment != Alignment::NONE && 
-					other.alignment != entity.alignment && other_bounds.overlaps(ent_bounds)) {
+					other.alignment != entity.alignment && other_bounds->overlaps(*ent_bounds)) {
 					other.health -= 1;
 					entity.health -= 1;
 				}
@@ -36,7 +36,9 @@ void State::update() {
 	entities.end());
 }
 bool State::supported(const Entity &entity) const {
-	auto bounds = entity.bounds();
-	bounds.y += 1;
-	return !map.free(bounds);
+	auto bounds = entity.bounds;
+	bounds->setY(bounds->getY() + 1);
+	bool free = !map.free(*bounds);
+	bounds->setY(bounds->getY() - 1);
+	return free;
 }

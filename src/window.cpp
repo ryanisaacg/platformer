@@ -5,7 +5,7 @@
 
 #include "window.h"
 
-static SDL_Rect to_sdl(const Rect input);
+static SDL_Rect to_sdl(const Physical *input);
 
 Window::Window(const char *name, int width, int height) : textures() {
 	SDL_Init(SDL_INIT_VIDEO);
@@ -16,13 +16,12 @@ Window::Window(const char *name, int width, int height) : textures() {
 	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0x0);
 }
 
-void Window::render(SDL_Texture *texture, Rect source, Rect dest) const {
-	SDL_Rect src = to_sdl(source);
+void Window::render(SDL_Texture *texture, SDL_Rect *source, Physical *dest) const {
 	SDL_Rect dst = to_sdl(dest);
-	SDL_RenderCopy(renderer, texture, &src, &dst);
+	SDL_RenderCopy(renderer, texture, source, &dst);
 }
 
-void Window::render(SDL_Texture *texture, Rect dest) const {
+void Window::render(SDL_Texture *texture, Physical *dest) const {
 	SDL_Rect dst = to_sdl(dest);
 	SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
@@ -65,12 +64,12 @@ Window::~Window() {
 	IMG_Quit();
 }
 
-static SDL_Rect to_sdl(const Rect input) {
+static SDL_Rect to_sdl(const Physical *input) {
 	SDL_Rect rect;
-	rect.x = (int)input.x;
-	rect.y = (int)input.y;
-	rect.w = (int)input.width;
-	rect.h = (int)input.height;
+	rect.x = (int)input->left();
+	rect.y = (int)input->top();
+	rect.w = (int)(input->right() - input->left());
+	rect.h = (int)(input->bottom() - input->top());
 	return rect;
 }
 

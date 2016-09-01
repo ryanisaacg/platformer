@@ -4,6 +4,7 @@
 #include "SDL.h"
 
 #include "optional.h"
+#include "physical.h"
 #include "tilemap.h"
 #include "vector2.h"
 
@@ -14,39 +15,34 @@ enum class Alignment { NONE, PLAYER, ENEMY };
 
 struct Entity {
 public:
-	int x, y, width, height, health;
+	Physical *bounds;
 	Vector2 speed;
 	SDL_Texture *texture;
 	ControlType control;
-	int fire_cooldown = 0, facing = 1;
+	int fire_cooldown = 0, facing = 1, health = 0;
 	float gravity = 0;
 	Alignment alignment;
 	bool projectile;
 	Entity();
-	Entity(int x, int y, int width, int height, SDL_Texture *texture, bool projectile = false, 
-		ControlType type = ControlType::NONE);
+	Entity(Rect rect, SDL_Texture *texture, bool projectile = false, ControlType type = ControlType::NONE);
+	Entity(Circle circ, SDL_Texture *texture, bool projectile = false, ControlType type = ControlType::NONE);
+	~Entity();
 	const SDL_Rect sdl_bounds() const;
-	const Rect bounds() const;
 	void move();
 	void render(const Window &window) const;
 	template<typename T>
 	void move(const TileMap<T> map) {
-		auto rect = bounds();
 		auto prev_speed = speed;
 		if(projectile) {
 			Vector2 xspeed(speed.x, 0);
 			Vector2 yspeed(0, speed.y);
-			map.shape_slide(rect, xspeed, rect, xspeed);
-			map.shape_slide(rect, yspeed, rect, yspeed);
+			map.shape_slide(*bounds, xspeed, *bounds, xspeed);
+			map.shape_slide(*bounds, yspeed, *bounds, yspeed);
 			if(xspeed.x != speed.x) speed.x *= -1;
 			if(yspeed.y != speed.y) speed.y *= -1;
 		} else {
-			map.shape_slide(rect, speed, rect, speed);
+			map.shape_slide(*bounds, speed, *bounds, speed);
 		}
-		x = rect.x;
-		y = rect.y;
-		width = rect.width;
-		height = rect.height;
 	}
 };
 

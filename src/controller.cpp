@@ -36,8 +36,8 @@ void Controller::update() {
 				jumpedLastFrame = false;
 			}
 			if(mouse.left && entity.fire_cooldown == 0) {
-				auto speed = Vector2(mouse.x - entity.x, mouse.y - entity.y).set_length(16);
-				auto &bullet = state.spawn(Rect(entity.x + 4, entity.y + 4, entity.width - 16, entity.height - 16), this->bullet, true);
+				auto speed = Vector2(mouse.x - entity.bounds->getX(), mouse.y - entity.bounds->getY()).set_length(16);
+				auto &bullet = state.spawn(Rect(entity.bounds->getX() + 4, entity.bounds->getY() + 4, 16, 16), this->bullet, true);
 				bullet.speed = speed;
 				entity.fire_cooldown = 10;
 				bullet.alignment = Alignment::PLAYER;
