@@ -4,7 +4,7 @@
 
 #include "entity.h"
 
-Controller::Controller(const Keyboard &keyboard, Mouse &mouse, State &state, SDL_Texture *bullet) : 
+Controller::Controller(Keyboard &keyboard, Mouse &mouse, State &state, SDL_Texture *bullet) : 
 	keyboard(keyboard), state(state), bullet(bullet), mouse(mouse) {}
 
 float clamp(float value, float low, float high) {

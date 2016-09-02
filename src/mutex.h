@@ -9,8 +9,7 @@
  */
 class acquire {
 public:
-	acquire(std::mutex &lock) {
-		this->lock = lock;
+	acquire(std::mutex &lock) : lock(lock) {
 		lock.lock();
 	}
 	~acquire() {

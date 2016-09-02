@@ -9,11 +9,11 @@
 
 class Controller {
 public:
-	Controller(const Keyboard &keyboard, Mouse &mouse, State &state, SDL_Texture *bullet);
+	Controller(Keyboard &keyboard, Mouse &mouse, State &state, SDL_Texture *bullet);
 	void update();
 private:
 	bool jumpedLastFrame;
-	const Keyboard &keyboard;
+	Keyboard &keyboard;
 	Mouse &mouse;
 	State &state;
 	SDL_Texture *bullet;

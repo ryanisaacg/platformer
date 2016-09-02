@@ -1,5 +1,4 @@
 #include <iostream>
-#include <mutex>
 #include <thread>
 #include <vector>
 
@@ -9,13 +8,14 @@
 #include "controller.h"
 #include "keyboard.h"
 #include "mouse.h"
+#include "mutex.h"
 #include "rect.h"
 #include "state.h"
 #include "window.h"
 
 using namespace std;
 
-mutex mtx;
+std::mutex mtx;
 bool run_loop = true;
 
 State state(640, 480);
@@ -24,10 +24,11 @@ void update_loop(Controller controller) {
 	while(run_loop) {
 		//STATE UPDATE
 		auto ticks = SDL_GetTicks();
-		mtx.lock();
-		state.update();
-		controller.update();
-		mtx.unlock();
+		{
+			auto tmp = acquire(mtx);
+			state.update();
+			controller.update();
+		}
 		auto elapsed = SDL_GetTicks() - ticks;
 		if(elapsed > 16) continue;
 		SDL_Delay(16 - elapsed);
@@ -53,7 +54,6 @@ int main() {
 	float avg_framerate = 0;
 	while(run_loop) {
 		auto start = SDL_GetTicks();
-		mtx.lock();
 		//EVENT POLLING
 		SDL_Event e;
 		while(SDL_PollEvent(&e)) {
@@ -62,18 +62,20 @@ int main() {
 		}
 		//RENDER CODE
 		window.start();
-		for(auto &ent : state.entities)
-			window.render(ent);
-		auto map = state.map;
-		for(int x = 0; x < map.width; x += map.square_size) {
-			for(int y = 0; y < map.height; y += map.square_size) {
-				auto square = map[Vector2(x, y)];
-				if(square) {
-					window.render(*square);
+		{
+			auto tmp = acquire(mtx);
+			for(auto &ent : state.entities)
+				window.render(ent);
+			auto map = state.map;
+			for(int x = 0; x < map.width; x += map.square_size) {
+				for(int y = 0; y < map.height; y += map.square_size) {
+					auto square = map[Vector2(x, y)];
+					if(square) {
+						window.render(*square);
+					}
 				}
 			}
 		}
-		mtx.unlock();
 		window.end();
 		auto end = SDL_GetTicks();
 		frames += 1;
