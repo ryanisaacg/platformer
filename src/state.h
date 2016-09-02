@@ -2,10 +2,7 @@
 #pragma once
 
 #include "SDL.h"
-
-#include "optional.h"
-#include "rect.h"
-#include "vector2.h"
+#include "arcade-physics.h"
 
 #include "entity.h"
 #include "tilemap.h"

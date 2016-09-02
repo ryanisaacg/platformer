@@ -1,6 +1,6 @@
-#include <algorithm>
-
 #include "controller.h"
+
+#include <algorithm>
 
 #include "entity.h"
 

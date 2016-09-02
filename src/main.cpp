@@ -4,9 +4,7 @@
 #include <vector>
 
 #include "SDL.h"
-
-#include "optional.h"
-#include "tilemap.h"
+#include "arcade-physics.h"
 
 #include "controller.h"
 #include "keyboard.h"

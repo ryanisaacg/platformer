@@ -4,11 +4,7 @@
 #include <memory>
 
 #include "SDL.h"
-
-#include "optional.h"
-#include "physical.h"
-#include "tilemap.h"
-#include "vector2.h"
+#include "arcade-physics.h"
 
 enum class ControlType { NONE, PLAYER };
 enum class Alignment { NONE, PLAYER, ENEMY };
