@@ -12,7 +12,7 @@ public:
 	Controller(Keyboard &keyboard, Mouse &mouse, State &state, SDL_Texture *bullet);
 	void update();
 private:
-	bool jumpedLastFrame;
+	bool jumpedLastFrame, hasSaw;
 	Keyboard &keyboard;
 	Mouse &mouse;
 	State &state;

@@ -9,6 +9,11 @@ Entity& State::spawn(Rect region, SDL_Texture *texture, bool contact_death, Cont
 	entities.push_back(Entity(region, texture, contact_death, control));
 	return entities[entities.size() - 1];
 }
+
+Entity& State::spawn(Circle region, SDL_Texture *texture, bool contact_death, ControlType control) {
+	entities.push_back(Entity(region, texture, contact_death, control));
+	return entities[entities.size() - 1];
+}
 void State::place_tile(Vector2 point, SDL_Texture *texture) {
 	map[point] = std::move(Entity(Rect(point.x, point.y, State::TILE_SIZE, State::TILE_SIZE), texture));
 }
@@ -25,7 +30,7 @@ void State::update() {
 				if(&other != &entity && other.alignment != Alignment::NONE && 
 					other.alignment != entity.alignment && other_bounds->overlaps(ent_bounds.get())) {
 					other.health -= 1;
-					entity.health -= 1;
+					entity.speed = entity.speed.scale(-1);
 				}
 			}
 		} else if(entity.fire_cooldown > 0)

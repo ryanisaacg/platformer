@@ -11,6 +11,7 @@ struct State {
 	static const int TILE_SIZE = 32;
 	State(int width, int height);
 	Entity &spawn(const Rect region, SDL_Texture *texture, bool contact_death = false, ControlType control = ControlType::NONE);
+	Entity &spawn(const Circle region, SDL_Texture *texture, bool contact_death = false, ControlType control = ControlType::NONE);
 	void place_tile(const Vector2 point, SDL_Texture *texture);
 	void update();
 	bool supported(const Entity &entity) const;

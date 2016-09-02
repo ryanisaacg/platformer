@@ -49,7 +49,7 @@ int main() {
 	auto &enemy = state.spawn(Rect(200, 0, 32, 32), texture);
 	enemy.alignment = Alignment::ENEMY;
 	enemy.gravity = 0.5f;
-	auto update_thread = thread(update_loop, Controller(keyboard, mouse, state, window.load_texture("../img/bullet.png")));
+	auto update_thread = thread(update_loop, Controller(keyboard, mouse, state, window.load_texture("../img/saw.png")));
 	int frames = 0;
 	float avg_framerate = 0;
 	while(run_loop) {
