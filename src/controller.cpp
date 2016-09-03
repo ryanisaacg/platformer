@@ -36,7 +36,7 @@ void Controller::update() {
 				jumpedLastFrame = false;
 			}
 			if(mouse.left && entity.fire_cooldown == 0 && hasSaw) {
-				auto speed = Vector2(mouse.x - entity.bounds->getX(), mouse.y - entity.bounds->getY()).set_length(16);
+				auto speed = Vector2(mouse.x - entity.bounds->getX(), mouse.y - entity.bounds->getY()).set_length(12);
 				auto &bullet = state.spawn(Circle(entity.bounds->getX() + 24, entity.bounds->getY() + 24, 24), this->bullet, true);
 				bullet.speed = speed;
 				entity.fire_cooldown = 10;
