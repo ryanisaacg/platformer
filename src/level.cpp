@@ -48,12 +48,12 @@ void LevelData::load(const std::string filename) {
 
 
 Level::Level(int width, int height, Window &window) : data(width, height, TILE_SIZE), 
-	state(width, height, TILE_SIZE), width(width), height(height) {
+	state(*this, width, height, TILE_SIZE), width(width), height(height) {
 	wall = window.load_texture("../img/red.png");
 }
 
 Level::Level(std::string filename, int width, int height, Window &window) : 
-	data(filename, width, height, TILE_SIZE), state(width, height, TILE_SIZE), width(width), height(height) {
+	data(filename, width, height, TILE_SIZE), state(*this, width, height, TILE_SIZE), width(width), height(height) {
 	wall = window.load_texture("../img/red.png");
 	restart();
 }
