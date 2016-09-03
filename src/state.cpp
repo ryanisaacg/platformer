@@ -3,7 +3,7 @@
 
 #include "state.h"
 
-State::State(int width, int height) : map(width, height, State::TILE_SIZE), entities() {}
+State::State(int width, int height, int tile_size) : map(width, height, tile_size), entities(), TILE_SIZE(tile_size) {}
 
 Entity& State::spawn(Rect region, SDL_Texture *texture, bool contact_death, ControlType control) {
 	entities.push_back(Entity(region, texture, contact_death, control));

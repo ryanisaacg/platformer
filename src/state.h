@@ -8,8 +8,7 @@
 #include "tilemap.h"
 
 struct State {
-	static const int TILE_SIZE = 32;
-	State(int width, int height);
+	State(int width, int height, int tile_size);
 	Entity &spawn(const Rect region, SDL_Texture *texture, bool contact_death = false, ControlType control = ControlType::NONE);
 	Entity &spawn(const Circle region, SDL_Texture *texture, bool contact_death = false, ControlType control = ControlType::NONE);
 	void place_tile(const Vector2 point, SDL_Texture *texture);
@@ -22,5 +21,6 @@ struct State {
 	}
 	TileMap<Optional<Entity>> map;
 	std::vector<Entity> entities;
+	const int TILE_SIZE;
 };
 	
