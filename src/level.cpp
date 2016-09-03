@@ -24,7 +24,7 @@ void LevelData::expand_to_capacity() {
 char& LevelData::operator[](Vector2 point) {
 	int x = (int)point.x / square_size;
 	int y = (int)point.y / square_size;
-	int index = y * width + x;
+	int index = y * (width / square_size) + x;
 	return data[index];
 }
 
