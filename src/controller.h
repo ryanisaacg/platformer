@@ -17,5 +17,4 @@ private:
 	Mouse &mouse;
 	State &state;
 	SDL_Texture *bullet;
-	Entity *saw = nullptr;
 };
