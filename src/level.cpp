@@ -64,6 +64,7 @@ void Level::place_tile(const Vector2 point) {
 }
 
 void Level::restart() {
+	state.entities.clear();
 	for(int x = 0; x < width; x += TILE_SIZE) {
 		for(int y = 0; y < height; y += TILE_SIZE) {
 			auto pos = Vector2(x, y);
