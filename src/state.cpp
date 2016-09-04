@@ -27,10 +27,11 @@ void State::update() {
 			for(auto &other : entities) {
 				auto ent_bounds = entity.bounds;
 				auto other_bounds = other.bounds;
-				if(&other != &entity && other.alignment != Alignment::NONE && 
-					other.alignment != entity.alignment && other_bounds->overlaps(ent_bounds.get())) {
+				if(&other != &entity && other.alignment != Alignment::NONE && other_bounds->overlaps(ent_bounds.get())) {
 					other.health -= 1;
 					entity.speed = entity.speed.scale(-1);
+					if(other.alignment == Alignment::PLAYER)
+						parent.restart();
 				}
 			}
 		} else if(entity.fire_cooldown > 0)
