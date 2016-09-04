@@ -37,11 +37,16 @@ void Controller::update() {
 			}
 			if(mouse.left && entity.fire_cooldown == 0 && hasSaw) {
 				auto speed = Vector2(mouse.x - entity.bounds->getX(), mouse.y - entity.bounds->getY()).set_length(12);
-				auto &bullet = state.spawn(Circle(entity.bounds->getX() + 24, entity.bounds->getY() + 24, 24), this->bullet, true);
-				bullet.speed = speed;
-				entity.fire_cooldown = 10;
-				bullet.alignment = Alignment::PLAYER;
-				hasSaw = false;
+				auto step = speed.set_length(50);
+				if(state.map.free(entity.bounds->getX() + step.x, entity.bounds->getY() + step.y, 48, 48))
+				{
+					auto &bullet = state.spawn(Circle(entity.bounds->getX() + step.x + 24, entity.bounds->getY() + step.y + 24, 24), 
+						this->bullet, true);
+					bullet.speed = speed;
+					entity.fire_cooldown = 10;
+					bullet.alignment = Alignment::PLAYER;
+					hasSaw = false;
+				}
 			}
 			break;
 		}
