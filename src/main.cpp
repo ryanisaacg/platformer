@@ -29,6 +29,7 @@ void update_loop(Controller controller) {
 			auto tmp = acquire(mtx);
 			level.state.update();
 			controller.update();
+			level.state.cleanup();
 		}
 		auto elapsed = SDL_GetTicks() - ticks;
 		if(elapsed > 16) continue;

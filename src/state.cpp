@@ -37,10 +37,14 @@ void State::update() {
 		} else if(entity.fire_cooldown > 0)
 			entity.fire_cooldown -= 1;
 	}
+}
+
+void State::cleanup() {
 	entities.erase(std::remove_if(entities.begin(), entities.end(),
 		[](auto &entity) { return entity.health <= 0; }),
 	entities.end());
 }
+
 bool State::supported(const Entity &entity) const {
 	entity.bounds->setY(entity.bounds->getY() + 1);
 	bool free = !map.free(entity.bounds.get());

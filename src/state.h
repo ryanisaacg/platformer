@@ -15,6 +15,7 @@ struct State {
 	Entity &spawn(const Circle region, SDL_Texture *texture, bool contact_death = false, ControlType control = ControlType::NONE);
 	void place_tile(const Vector2 point, SDL_Texture *texture);
 	void update();
+	void cleanup();
 	bool supported(const Entity &entity) const;
 	template <typename T>
 	void do_to_entities(T t) {
