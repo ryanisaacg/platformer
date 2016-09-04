@@ -25,7 +25,7 @@ public:
 	const SDL_Rect sdl_bounds() const;
 	void move();
 	template<typename T>
-	void move(const TileMap<T> map) {
+	void move(const TileMap<T> &map) {
 		auto prev_speed = speed;
 		if(projectile) {
 			Vector2 xspeed(speed.x, 0);
