@@ -63,10 +63,6 @@ void Level::place_tile(const Vector2 point) {
 	data[point] = 'X';
 }
 
-void Level::update() {
-	state.update();
-}
-
 void Level::restart() {
 	for(int x = 0; x < width; x += TILE_SIZE) {
 		for(int y = 0; y < height; y += TILE_SIZE) {

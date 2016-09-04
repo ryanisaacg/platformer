@@ -28,7 +28,6 @@ public:
 	Level(std::string filename, int width, int height, Window &window);
 	void place_tile(const Vector2 point);
 	void restart();
-	void update();
 	LevelData data;
 	State state;
 	static const int TILE_SIZE = 32;

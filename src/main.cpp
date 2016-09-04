@@ -27,7 +27,7 @@ void update_loop(Controller controller) {
 		auto ticks = SDL_GetTicks();
 		{
 			auto tmp = acquire(mtx);
-			level.update();
+			level.state.update();
 			controller.update();
 		}
 		auto elapsed = SDL_GetTicks() - ticks;
