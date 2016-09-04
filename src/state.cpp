@@ -31,12 +31,15 @@ void State::update() {
 					other.health -= 1;
 					entity.speed = entity.speed.scale(-1);
 					if(other.alignment == Alignment::PLAYER)
-						parent.restart();
+						goto restart;
 				}
 			}
 		} else if(entity.fire_cooldown > 0)
 			entity.fire_cooldown -= 1;
 	}
+	return;
+	restart:
+		parent.restart();
 }
 
 void State::cleanup() {
