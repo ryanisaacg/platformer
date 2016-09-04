@@ -15,7 +15,7 @@
 
 using namespace std;
 
-std::mutex mtx;
+std::mutex mtx, keymtx;
 bool run_loop = true;
 
 Window window("Platformer", 640, 480);
@@ -28,7 +28,11 @@ void update_loop(Controller controller) {
 		{
 			auto tmp = acquire(mtx);
 			level.state.update();
-			controller.update();
+			level.state.cleanup();
+			{
+				auto key = acquire(keymtx);
+				controller.update();
+			}
 			level.state.cleanup();
 		}
 		auto elapsed = SDL_GetTicks() - ticks;
@@ -50,7 +54,10 @@ int main() {
 		SDL_Event e;
 		while(SDL_PollEvent(&e)) {
 			if(e.type == SDL_QUIT) run_loop = false;
-			else keyboard.process(e);
+			else {
+				auto key = acquire(keymtx);
+				keyboard.process(e);
+			}
 		}
 		//RENDER CODE
 		window.start();
@@ -58,7 +65,7 @@ int main() {
 			auto tmp = acquire(mtx);
 			for(auto &ent : level.state.entities)
 				window.render(ent);
-			auto map = level.state.map;
+			auto &map = level.state.map;
 			for(int x = 0; x < map.width; x += map.square_size) {
 				for(int y = 0; y < map.height; y += map.square_size) {
 					auto square = map[Vector2(x, y)];
