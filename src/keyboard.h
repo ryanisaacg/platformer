@@ -14,5 +14,4 @@ public:
 	const bool operator[](const SDL_Scancode key);
 private:
 	std::unordered_set<int> pressed;
-	std::mutex mutex;
 };
