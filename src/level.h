@@ -27,6 +27,7 @@ public:
 	Level(int width, int height, Window &window);
 	Level(std::string filename, int width, int height, Window &window);
 	void place_tile(const Vector2 point);
+	void remove_tile(const Vector2 point);
 	void restart();
 	LevelData data;
 	State state;
