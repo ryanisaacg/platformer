@@ -14,9 +14,14 @@ Entity& State::spawn(Circle region, SDL_Texture *texture, bool contact_death, Co
 	entities.push_back(Entity(region, texture, contact_death, control));
 	return entities[entities.size() - 1];
 }
-void State::place_tile(Vector2 point, SDL_Texture *texture) {
+void State::place_tile(const Vector2 point, SDL_Texture *texture) {
 	map[point] = std::move(Entity(Rect(point.x, point.y, State::TILE_SIZE, State::TILE_SIZE), texture));
 }
+
+void State::remove_tile(const Vector2 point) {
+	map[point] = Optional<Entity>();
+}
+
 void State::update() {
 	for(auto& entity : entities) {
 		if(!supported(entity)) {
