@@ -17,7 +17,7 @@
 using namespace std;
 
 std::mutex mtx, keymtx;
-bool run_loop = true, is_editor = true;
+bool run_loop = true;
 
 Window window("Platformer", 640, 480);
 Level level("../data/test", 640, 480, window);
@@ -27,6 +27,7 @@ Editor editor(level, mouse, keyboard);
 Controller controller(keyboard, mouse, level.state, window.load_texture("../img/saw.png"));
 
 void update_loop(Controller controller) {
+	bool is_editor = true, esc_last = false;
 	while(run_loop) {
 		//STATE UPDATE
 		auto ticks = SDL_GetTicks();
@@ -43,6 +44,16 @@ void update_loop(Controller controller) {
 				controller.update();
 			}
 			level.state.cleanup();
+		}
+		{
+			auto key = acquire(keymtx);
+			if(keyboard[SDL_SCANCODE_ESCAPE]) {
+				esc_last = true;
+				if(!esc_last)
+					is_editor = !is_editor;
+			} else {
+				esc_last = false;
+			}
 		}
 		auto elapsed = SDL_GetTicks() - ticks;
 		if(elapsed > 16) continue;
