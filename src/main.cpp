@@ -30,7 +30,11 @@ void update_loop(Controller controller) {
 	while(run_loop) {
 		//STATE UPDATE
 		auto ticks = SDL_GetTicks();
-		{
+		if(is_editor) {
+			auto tmp = acquire(mtx);
+			auto key = acquire(keymtx);
+			editor.update();
+		} else {
 			auto tmp = acquire(mtx);
 			level.state.update();
 			level.state.cleanup();
