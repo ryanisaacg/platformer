@@ -16,6 +16,7 @@ void Controller::update() {
 	mouse.update();
 	for(int i = 0; i < state.entities.size(); i++) {
 		auto &entity = state.entities[i];
+		bool found;
 		switch(entity.control) {
 		case ControlType::PLAYER:
 			if(keyboard[SDL_SCANCODE_D]) {
@@ -38,7 +39,7 @@ void Controller::update() {
 			}
 			if(mouse.left && !clickedLastFrame && entity.fire_cooldown == 0) {
 				clickedLastFrame = true;
-				bool found = false;
+				found = false;
 				for(int i = 0; i < state.entities.size() && !found; i++) {
 					auto &e = state.entities[i];
 					if(e.projectile && e.alignment == Alignment::PLAYER) {
@@ -68,6 +69,13 @@ void Controller::update() {
 			if(clickedLastFrame && !mouse.left)
 				clickedLastFrame = false;
 			break;
+		case ControlType::ENEMY:
+			for(int i = 0; i < state.entities.size() && !found; i++) {
+				auto &e = state.entities[i];
+				if(e.control == ControlType::PLAYER) {
+					entity.speed.x = 3 * get_sign(e.bounds->getX() - entity.bounds->getX());
+				}
+			}
 		}
 	}
 }
