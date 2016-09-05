@@ -6,6 +6,7 @@
 #include "arcade-physics.h"
 
 #include "controller.h"
+#include "editor.h"
 #include "keyboard.h"
 #include "level.h"
 #include "mouse.h"
@@ -16,10 +17,14 @@
 using namespace std;
 
 std::mutex mtx, keymtx;
-bool run_loop = true;
+bool run_loop = true, is_editor = true;
 
 Window window("Platformer", 640, 480);
 Level level("../data/test", 640, 480, window);
+Keyboard keyboard;
+Mouse mouse;
+Editor editor(level, mouse, keyboard);
+Controller controller(keyboard, mouse, level.state, window.load_texture("../img/saw.png"));
 
 void update_loop(Controller controller) {
 	while(run_loop) {
@@ -43,9 +48,7 @@ void update_loop(Controller controller) {
 
 #undef main
 int main() {
-	Keyboard keyboard;
-	Mouse mouse;
-	auto update_thread = thread(update_loop, Controller(keyboard, mouse, level.state, window.load_texture("../img/saw.png")));
+	auto update_thread = thread(update_loop, controller);
 	int frames = 0;
 	float avg_framerate = 0;
 	while(run_loop) {
