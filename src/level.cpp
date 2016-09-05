@@ -76,12 +76,12 @@ void Level::restart() {
 				state.place_tile(pos, wall);
 				break;
 			case 'P': {
-				auto &player = state.spawn(Rect(0, 0, 32, 32), wall, false, ControlType::PLAYER);
+				auto &player = state.spawn(Rect(x, y, TILE_SIZE, TILE_SIZE), wall, false, ControlType::PLAYER);
 				player.alignment = Alignment::PLAYER;
 				player.gravity = 0.5f;
 			} break;
 			case 'E': {
-				auto &enemy = state.spawn(Rect(200, 0, 32, 32), wall);
+				auto &enemy = state.spawn(Rect(x, y, TILE_SIZE, TILE_SIZE), wall, false, ControlType::ENEMY);
 				enemy.alignment = Alignment::ENEMY;
 				enemy.gravity = 0.5f;
 			} break;
