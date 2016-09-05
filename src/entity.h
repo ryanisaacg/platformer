@@ -6,7 +6,7 @@
 #include "SDL.h"
 #include "arcade-physics.h"
 
-enum class ControlType { NONE, PLAYER };
+enum class ControlType { NONE, PLAYER, ENEMY };
 enum class Alignment { NONE, PLAYER, ENEMY };
 
 struct Entity {
