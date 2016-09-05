@@ -11,6 +11,8 @@ void Editor::update() {
 	case EditorState::Block:
 		if(mouse.left) {
 			level.place_tile(Vector2(mouse.x, mouse.y));
+		} else if(mouse.right) {
+			level.remove_tile(Vector2(mouse.x, mouse.y));
 		}
 		break;
 	}
