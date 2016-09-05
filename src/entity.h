@@ -18,7 +18,7 @@ public:
 	int fire_cooldown = 0, facing = 1, health = 0;
 	float gravity = 0;
 	Alignment alignment;
-	bool projectile;
+	bool projectile, flies, walks;
 	Entity();
 	Entity(Rect rect, SDL_Texture *texture, bool projectile = false, ControlType type = ControlType::NONE);
 	Entity(Circle circ, SDL_Texture *texture, bool projectile = false, ControlType type = ControlType::NONE);

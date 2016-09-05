@@ -4,7 +4,7 @@
 #include "level.h"
 #include "mouse.h"
 
-enum class EditorState { Block };
+enum class EditorState { Block, Player, Enemy };
 
 class Editor {
 public:

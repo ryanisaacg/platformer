@@ -48,9 +48,9 @@ void update_loop(Controller controller) {
 		{
 			auto key = acquire(keymtx);
 			if(keyboard[SDL_SCANCODE_ESCAPE]) {
-				esc_last = true;
 				if(!esc_last)
 					is_editor = !is_editor;
+				esc_last = true;
 			} else {
 				esc_last = false;
 			}

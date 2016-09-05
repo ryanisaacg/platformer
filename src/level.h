@@ -9,14 +9,12 @@
 #include "state.h"
 #include "window.h"
 
-class LevelData {
-public:
+struct LevelData {
 	LevelData(int width, int height, int square_size);
 	LevelData(std::string filename, int width, int height, int square_size);
 	char& operator[](const Vector2 point);
 	void save(const std::string filename) const;
 	void load(const std::string filename);
-private:
 	void expand_to_capacity();
 	std::vector<char> data;
 	const int width, height, square_size;
@@ -28,6 +26,9 @@ public:
 	Level(std::string filename, int width, int height, Window &window);
 	void place_tile(const Vector2 point);
 	void remove_tile(const Vector2 point);
+	void set_player_position(const Vector2 point);
+	void add_enemy(const Vector2 point);
+	void remove_enemy(const Vector2 point);
 	void restart();
 	LevelData data;
 	State state;
