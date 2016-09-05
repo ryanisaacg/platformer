@@ -59,8 +59,11 @@ Level::Level(std::string filename, int width, int height, Window &window) :
 }
 
 void Level::place_tile(const Vector2 point) {
-	state.place_tile(point, wall);
-	data[point] = 'X';
+	auto snapped = point;
+	snapped.x = ((int)snapped.x / TILE_SIZE) * TILE_SIZE;
+	snapped.y = ((int)snapped.y / TILE_SIZE) * TILE_SIZE;
+	state.place_tile(snapped, wall);
+	data[snapped] = 'X';
 }
 
 void Level::restart() {
