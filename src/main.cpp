@@ -19,8 +19,11 @@ using namespace std;
 std::mutex mtx, keymtx;
 bool run_loop = true;
 
-Window window("Platformer", 640, 480);
-Level level("../data/test", 640, 480, window);
+const int width = 1920,
+          height = 1080;
+
+Window window("Platformer", width, height);
+Level level("../data/test", width, height, window);
 Keyboard keyboard;
 Mouse mouse;
 Editor editor(level, mouse, keyboard);

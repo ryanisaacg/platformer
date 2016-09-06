@@ -3,13 +3,15 @@
 
 #include "window.h"
 
-static SDL_Rect to_sdl(const Entity &dest);
-
 Window::Window(const char *name, int width, int height) : textures() {
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
-	window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, 
-		SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+	SDL_DisplayMode mode;
+	SDL_GetCurrentDisplayMode(0, &mode);
+	window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, mode.w, mode.h, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP);
+	SDL_SetWindowGrab(window, SDL_TRUE);
+	x_scale = width / (float)mode.w;
+	y_scale = height / (float) mode.h;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0x0);
 }
@@ -49,12 +51,12 @@ Window::~Window() {
 	IMG_Quit();
 }
 
-static SDL_Rect to_sdl(const Entity &dest) {
+SDL_Rect Window::to_sdl(const Entity &dest) const {
 	SDL_Rect rect;
-	rect.x = (int)dest.bounds->left();
-	rect.y = (int)dest.bounds->top();
-	rect.w = (int)(dest.bounds->right() - dest.bounds->left());
-	rect.h = (int)(dest.bounds->bottom() - dest.bounds->top());
+	rect.x = (int)(dest.bounds->left() * x_scale);
+	rect.y = (int)(dest.bounds->top() * y_scale);
+	rect.w = (int)((dest.bounds->right() - dest.bounds->left()) * x_scale);
+	rect.h = (int)((dest.bounds->bottom() - dest.bounds->top()) * y_scale);
 	return rect;
 }
 

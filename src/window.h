@@ -17,7 +17,9 @@ public:
 	void start();
 	void end();
 private:
+	SDL_Rect to_sdl(const Entity &dest) const;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 	std::vector<SDL_Texture*> textures;
+	float x_scale, y_scale;
 };
