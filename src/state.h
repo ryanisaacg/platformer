@@ -1,6 +1,7 @@
 //-*-C++-*-
 #pragma once
 
+#include <vector>
 #include "SDL.h"
 #include "arcade-physics.h"
 
