@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "SDL.h"
 #include "SDL_image.h"
 
@@ -10,8 +12,9 @@ Window::Window(const char *name, int width, int height) : textures() {
 	SDL_GetCurrentDisplayMode(0, &mode);
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, mode.w, mode.h, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP);
 	SDL_SetWindowGrab(window, SDL_TRUE);
-	x_scale = width / (float)mode.w;
-	y_scale = height / (float) mode.h;
+	x_scale = (float)mode.w / width;
+	y_scale = (float) mode.h / height;
+	std::cout << x_scale << ":" << y_scale << std::endl;
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0x0);
 }
