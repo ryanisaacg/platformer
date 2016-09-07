@@ -25,7 +25,7 @@ const int width = 1920,
 Window window("Platformer", width, height);
 Level level("../data/test", width, height, window);
 Keyboard keyboard;
-Mouse mouse;
+Mouse mouse(window.x_scale, window.y_scale);
 Editor editor(level, mouse, keyboard);
 Controller controller(keyboard, mouse, level.state, window.load_texture("../img/saw.png"));
 
